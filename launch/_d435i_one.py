@@ -13,6 +13,8 @@
 # limitations under the License.
 
 """Launch realsense2_camera node."""
+"""NOT USED. just here for reference"""
+
 import os
 from launch import LaunchDescription
 from ament_index_python.packages import get_package_share_directory

@@ -1,20 +1,13 @@
-from launch import LaunchDescription
-from launch_ros.actions import Node
+import os
+import sys
+import pathlib
+import yaml
 
-def generate_launch_description():
-    ld = LaunchDescription()
+with open(str(pathlib.Path(__file__).parent.absolute())+"/config.yaml", "r") as stream:
+    config = yaml.safe_load(stream)
 
-    talker_node = Node(
-        package="demo_nodes_cpp",
-        executable="talker",
-    )
+# print(config)
 
-    listener_node = Node(
-        package="demo_nodes_py",
-        executable="listener"
-    )
+use_camera = 'd435i_R'
 
-    ld.add_action(talker_node)
-    ld.add_action(listener_node)
-    
-    return ld
+print(pharse_tf_args(config, use_camera))
