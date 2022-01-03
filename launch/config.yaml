@@ -2,7 +2,15 @@
 version: "1.0"
 
 rs_config:
-  enable_pointcloud: true
+  enable_pointcloud:
+    default: "true"
+    description: "enable pointcloud"
+  enable_fisheye1:
+    default: "false"
+    description: "enable fisheye 1"
+  enable_fisheye2:
+    default: "false"
+    description: "enable fisheye 2"
 
 d435i_R:
   serial: 
