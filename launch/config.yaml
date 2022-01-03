@@ -5,12 +5,50 @@ rs_config:
   enable_pointcloud:
     default: "true"
     description: "enable pointcloud"
+
+  enable_fisheye:
+    default: "false"
+    description: "enable fisheye"
   enable_fisheye1:
     default: "false"
     description: "enable fisheye 1"
   enable_fisheye2:
     default: "false"
     description: "enable fisheye 2"
+  enable_confidence:
+    default: "false"
+    description: "enable confidence"
+  enable_infra:
+    default: "false"
+    description: "enable infra"
+
+  depth_width:
+    default: "640"
+    description: "depth image width"
+  depth_height:
+    default: "360"
+    description: "depth image height"
+  depth_fps:
+    default: "30."
+    description: ""
+
+  color_width:
+    default: "640"
+    description: "color image width"
+  color_height:
+    default: "360"
+    description: "color image height"
+  color_fps:
+    default: "30."
+    description: ""
+
+  filters:
+    default: "pointcloud,temporal"
+    description: "filters (denoted by commas)"
+
+  allow_no_texture_points:
+    default: "true"
+    description: "publish pointcloud data that has no texture (color)"
 
 d435i_R:
   serial: 

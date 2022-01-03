@@ -67,7 +67,7 @@ def generate_launch_description():
     params1 = duplicate_params(raibo_smd_launch.full_parameters, '1')
     params2 = duplicate_params(raibo_smd_launch.full_parameters, '2')
 
-    rviz_config_dir = os.path.join(pkg_dir, 'rviz', 'pointcloud_multicam.rviz')
+    rviz_config_dir = os.path.join(pkg_dir, 'rviz', 'pointcloud_multicam_mono.rviz')
     rviz_node = Node(
         package='rviz2',
         executable='rviz2',

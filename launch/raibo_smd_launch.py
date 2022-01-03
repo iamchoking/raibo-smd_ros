@@ -40,9 +40,9 @@ for name,data in (config['rs_config'].items()):
             d['default']     = data['default']
             d['description'] = data['description']
             break
-# print(local_parameters)
-# for d in full_parameters:
-#     print(str(d))
+print(local_parameters)
+for d in full_parameters:
+    print(str(d))
 # print(full_parameters)    
 
 def generate_launch_description():
