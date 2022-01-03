@@ -6,9 +6,10 @@ import pathlib
 import yaml
 
 from launch                            import LaunchDescription
-from launch.actions                    import IncludeLaunchDescription
+from launch.actions                    import IncludeLaunchDescription,DeclareLaunchArgument
 from launch_ros.actions                import Node
-from launch.substitutions              import LaunchConfiguration, ThisLaunchFileDir
+from launch.substitutions              import LaunchConfiguration, ThisLaunchFileDir, PythonExpression
+from launch.conditions                 import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from ament_index_python.packages       import get_package_share_directory
 
@@ -21,7 +22,7 @@ pkg_launch_dir = os.path.join(pkg_dir,"launch")
 sys.path.append(pkg_launch_dir)
 sys.path.append(rs2_launch_dir)
 import rs_launch
-import raibo_smd_launch
+import head_launch
 
 with open(os.path.join(pkg_launch_dir,'config.yaml')) as stream:
     config = yaml.safe_load(stream)
@@ -64,17 +65,19 @@ def duplicate_params(general_params, posix):
     return local_params
     
 def generate_launch_description():
-    params1 = duplicate_params(raibo_smd_launch.full_parameters, '1')
-    params2 = duplicate_params(raibo_smd_launch.full_parameters, '2')
+    params1 = duplicate_params(head_launch.full_parameters, '1')
+    params2 = duplicate_params(head_launch.full_parameters, '2')
 
-    rviz_config_dir = os.path.join(pkg_dir, 'rviz', 'pointcloud_multicam_mono.rviz')
+    rviz_config_dir = os.path.join(pkg_dir, 'rviz', 'head_mult_mono.rviz')
+    enable_rviz = LaunchConfiguration("enable_rviz")
     rviz_node = Node(
         package='rviz2',
         executable='rviz2',
         name='rviz2',
         output = 'screen',
         arguments=['-d', rviz_config_dir],
-        parameters=[{'use_sim_time': False}]
+        parameters=[{'use_sim_time': False}],
+        condition=IfCondition(LaunchConfiguration("enable_rviz")),
         )
 
     tf_R_node = Node(
@@ -97,12 +100,13 @@ def generate_launch_description():
         tf_R_node,
         tf_L_node,
         IncludeLaunchDescription(
-            PythonLaunchDescriptionSource([pkg_launch_dir, '/raibo_smd_launch.py']),
+            PythonLaunchDescriptionSource([pkg_launch_dir, '/head_launch.py']),
             launch_arguments=set_configurable_parameters(params1).items(),
         ),
         IncludeLaunchDescription(
-            PythonLaunchDescriptionSource([pkg_launch_dir, '/raibo_smd_launch.py']),
+            PythonLaunchDescriptionSource([pkg_launch_dir, '/head_launch.py']),
             launch_arguments=set_configurable_parameters(params2).items(),
         ),
+        DeclareLaunchArgument('enable_rviz',default_value="true",description="run rviz node"),
         rviz_node,
     ])

@@ -6,9 +6,10 @@ import pathlib
 import yaml
 
 from launch                            import LaunchDescription
-from launch.actions                    import IncludeLaunchDescription
+from launch.actions                    import IncludeLaunchDescription,DeclareLaunchArgument
 from launch_ros.actions                import Node
-from launch.substitutions              import LaunchConfiguration, ThisLaunchFileDir
+from launch.substitutions              import LaunchConfiguration, ThisLaunchFileDir, PythonExpression
+from launch.conditions                 import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from ament_index_python.packages       import get_package_share_directory
 
@@ -49,14 +50,16 @@ def set_configurable_parameters(local_params):
     return dict([(param['original_name'], LaunchConfiguration(param['name'])) for param in local_params])
 
 def generate_launch_description():
-    rviz_config_dir = os.path.join(pkg_dir, 'rviz', 'pointcloud.rviz')
+    rviz_config_dir = os.path.join(pkg_dir, 'rviz', 'head_mult_rgb.rviz')
+    enable_rviz = LaunchConfiguration("enable_rviz")
     rviz_node = Node(
         package='rviz2',
         executable='rviz2',
         name='rviz2',
         output = 'screen',
         arguments=['-d', rviz_config_dir],
-        parameters=[{'use_sim_time': False}]
+        parameters=[{'use_sim_time': False}],
+        condition=IfCondition(LaunchConfiguration("enable_rviz")),
         )
 
     tf_node = Node(
@@ -68,10 +71,11 @@ def generate_launch_description():
     return LaunchDescription(
         rs_launch.declare_configurable_parameters(local_parameters) + 
         [
+            tf_node,
             IncludeLaunchDescription(
-                PythonLaunchDescriptionSource([pkg_launch_dir, '/raibo_smd_launch.py']),
+                PythonLaunchDescriptionSource([pkg_launch_dir, '/head_launch.py']),
                 launch_arguments=rs_launch.set_configurable_parameters(local_parameters).items(),
                 ),
+            DeclareLaunchArgument('enable_rviz',default_value="true",description="run rviz node"),
             rviz_node,
-            tf_node
         ])

@@ -54,6 +54,7 @@ d435i_R:
   serial: 
     data: "109622070324"
     dtype: "string"
+
   rotation_base_to_link:
     rows: 3
     cols: 3
@@ -79,6 +80,7 @@ d435i_L:
     data: "112222071586"
     dtype: "string"
   dtype: string
+
   rotation_base_to_link:
     rows: 3
     cols: 3
@@ -97,4 +99,36 @@ d435i_L:
     rows: 3
     cols: 1
     data: [0.3843,0.02048,-0.0453]
+    dtype: "float"
+
+velodyne:
+  model: "VLP-16 (PUCK-LITE)"
+  serial:
+    data: "11506211713574"
+    dtype: "string"
+  MAC:
+    data: "60-76-88-38-90-1C"
+    dtype: "string"
+  IP:
+    data: "192.168.1.201"
+    dtype: "string"
+  
+  rotation_base_to_link:
+    rows: 3
+    cols: 3
+    data: [
+       1.0000,  0.0000,  0.0000,
+       0.0000,  1.0000,  0.0000,
+       0.0000,  0.0000,  1.0000,
+    ]
+    dtype: "float"
+  ZYX_base_to_link:
+    rows: 3
+    cols: 1
+    data: [0.0000,0.0000,0.0000]
+    dtype: "float"
+  translation_base_to_link:
+    rows: 3
+    cols: 1
+    data: [-0.1100,0.0000,0.1728]
     dtype: "float"
