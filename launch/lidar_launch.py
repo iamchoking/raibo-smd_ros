@@ -54,6 +54,7 @@ def generate_launch_description():
     tf_node = Node(
         package = "tf2_ros", 
         executable = "static_transform_publisher",
+        name="base_to_"+'velodyne',
         arguments = pharse_tf_args(config,'velodyne'),
     )
 

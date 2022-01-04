@@ -43,11 +43,11 @@ def generate_launch_description():
         DeclareLaunchArgument('enable_rviz',default_value="true",description="run rviz node"),
         rviz_node,
         IncludeLaunchDescription(
-            PythonLaunchDescriptionSource([pkg_launch_dir, '/lidar.py']),
+            PythonLaunchDescriptionSource([pkg_launch_dir, '/lidar_launch.py']),
             launch_arguments={'enable_rviz':'false'}.items(),
         ),
         IncludeLaunchDescription(
-            PythonLaunchDescriptionSource([pkg_launch_dir, '/head_pcl_mult.py']),
+            PythonLaunchDescriptionSource([pkg_launch_dir, '/head_launch.py']),
             launch_arguments={'enable_rviz':'false'}.items(),
         ),
     ])

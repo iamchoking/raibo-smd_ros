@@ -65,6 +65,7 @@ def generate_launch_description():
     tf_node = Node(
         package = "tf2_ros", 
         executable = "static_transform_publisher",
+        name = "base_to_"+use_camera,
         arguments = pharse_tf_args(config,use_camera),
         )
 
@@ -73,7 +74,7 @@ def generate_launch_description():
         [
             tf_node,
             IncludeLaunchDescription(
-                PythonLaunchDescriptionSource([pkg_launch_dir, '/head_launch.py']),
+                PythonLaunchDescriptionSource([pkg_launch_dir, '/depth_launch.py']),
                 launch_arguments=rs_launch.set_configurable_parameters(local_parameters).items(),
                 ),
             DeclareLaunchArgument('enable_rviz',default_value="true",description="run rviz node"),
