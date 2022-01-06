@@ -6,8 +6,8 @@ import yaml
 with open(str(pathlib.Path(__file__).parent.absolute())+"/config.yaml", "r") as stream:
     config = yaml.safe_load(stream)
 
-# print(config)
+a = ['a','b','c']
 
-use_camera = 'd435i_R'
-
-print(pharse_tf_args(config, use_camera))
+for i,item in enumerate(a):
+    print ("i: "+ str(i))
+    print ("item: "+ str(item))

@@ -39,8 +39,8 @@ def pharse_tf_args(config,use_camera):
 
     return use_args
 
-R_camera = "d435i_R"
-L_camera = "d435i_L"
+R_camera = "d435i_R" # camera1 is R (right)
+L_camera = "d435i_L" # camera2 is L 
 
 R_serial_param = "'%s'"%(config[R_camera]['serial']['data'])
 L_serial_param = "'%s'"%(config[L_camera]['serial']['data'])
@@ -50,6 +50,8 @@ local_parameters = [
     {'name': 'camera_name2',       'default': L_camera,       'description': 'camera unique name'},
     {'name': 'serial_no1',         'default': R_serial_param, 'description': 'choose device by serial number'},
     {'name': 'serial_no2',         'default': L_serial_param, 'description': 'choose device by serial number'},
+    {'name': 'stereo_module.inter_cam_sync_mode1',       'default': "1",        'description': 'camera sync mode (0: default,1: master,2: slave,3: full slave,)'},
+    {'name': 'stereo_module.inter_cam_sync_mode2',       'default': "2",        'description': 'camera sync mode (0: default,1: master,2: slave,3: full slave,)'},   
 ]
 
 # print(type(config['d435i_R']['serial']))

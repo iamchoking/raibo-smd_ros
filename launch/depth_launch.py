@@ -4,6 +4,7 @@ import os
 import sys
 import pathlib
 import yaml
+import launch_ros.actions
 
 from launch                            import LaunchDescription
 from launch.actions                    import IncludeLaunchDescription
@@ -31,26 +32,44 @@ full_parameters = copy.deepcopy(rs_launch.configurable_parameters)
 # for d in full_parameters:
 #     print(str(d))
 # print('---')
+
+
+# adding config data from .yaml file
 for name,data in (config['rs_config'].items()):
-    local_parameters.append(
-        {'name':name,'default':data['default'],'description':data['description']}
-    )
-    for d in full_parameters:
-        if d['name'] == name:
+    local_parameters.append({'name':name,'default':data['default'],'description':data['description']})
+
+# additional parameters that need to be configured (params that are not relevant to .yaml file)
+local_parameters +=[
+    # {'name': 'enable_sync',       'default': 'true',        'description': 'thats the sync'},
+    {'name': 'pointcloud.stream_index_filter'   ,   'default': "0", 'description': 'pcl stream index filter'                                        },
+    {'name': 'stereo_module.inter_cam_sync_mode',   'default': "1", 'description': 'camera sync mode (0: default,1: master,2: slave,3: full slave,)'},
+]
+
+for data in local_parameters:
+    for index,d in enumerate(full_parameters):
+        if d['name'] == data['name']:
             d['default']     = data['default']
             d['description'] = data['description']
             break
+        if index == len(full_parameters) - 1:
+            full_parameters.append(data)
+            break
 # print(local_parameters)
-# for d in full_parameters:
-#     print(str(d))
-# print(full_parameters)    
+for d in full_parameters:
+    print(str(d))
 
 def generate_launch_description():
-    return LaunchDescription(
-        rs_launch.declare_configurable_parameters(local_parameters) + 
-        [
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource([rs2_launch_dir, '/rs_launch.py']),
-            launch_arguments=rs_launch.set_configurable_parameters(local_parameters).items(),
-        ),
+    log_level = 'info'
+    return LaunchDescription(rs_launch.declare_configurable_parameters(full_parameters) + [
+        # Realsense
+        launch_ros.actions.Node(
+            package     = 'realsense2_camera',
+            namespace   = LaunchConfiguration("camera_name"),
+            name        = LaunchConfiguration("camera_name"),
+            executable  = 'realsense2_camera_node',
+            parameters  = [rs_launch.set_configurable_parameters(full_parameters)],
+            output      = 'screen',
+            arguments   = ['--ros-args', '--log-level', LaunchConfiguration('log_level')],
+            emulate_tty = True,
+        ), # adding custom config .json file is not included here
     ])

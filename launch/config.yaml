@@ -43,7 +43,7 @@ rs_config:
     description: ""
 
   filters:
-    default: "pointcloud,temporal"
+    default: "spatial,temporal,pointcloud"
     description: "filters (denoted by commas)"
 
   allow_no_texture_points:

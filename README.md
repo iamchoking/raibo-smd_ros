@@ -31,7 +31,7 @@ realsense-viewer
 ```
 The above command must start a graphical interface, which connects to one of the Realsense devices.
 </br></br>
-### 1.2. ```realsense-ros``` ([link](https://github.com/intel/ros2_intel_realsense))
+### 1.2. ```realsense-ros``` ([link](https://github.com/intel/ros2_intel_realsense)) ([link](https://github.com/IntelRealSense/realsense-ros/tree/ros2))
 *Note: **Binary** installation is recommended to keep development workspace minimal.*
 
 **IMPORTANT: The link for installation shows instructions to install for the ros distribution *dashing*. Change all the ```dashing``` statements to either ```foxy``` or ```${ROS_DISTRO}```.**
