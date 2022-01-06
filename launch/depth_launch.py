@@ -54,9 +54,6 @@ for data in local_parameters:
         if index == len(full_parameters) - 1:
             full_parameters.append(data)
             break
-# print(local_parameters)
-for d in full_parameters:
-    print(str(d))
 
 def generate_launch_description():
     log_level = 'info'
@@ -73,3 +70,8 @@ def generate_launch_description():
             emulate_tty = True,
         ), # adding custom config .json file is not included here
     ])
+
+if __name__ == "__main__":
+        # print(local_parameters)
+    for d in full_parameters:
+        print(str(d))

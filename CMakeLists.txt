@@ -17,9 +17,16 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-# uncomment the following section in order to fill in
-# further dependencies manually.
-# find_package(<dependency> REQUIRED)
+
+# sensors base packages
+find_package(rclcpp                 REQUIRED)
+find_package(realsense2_camera      REQUIRED)
+find_package(realsense2_camera_msgs REQUIRED)
+find_package(velodyne               REQUIRED)
+find_package(velodyne_driver        REQUIRED)
+find_package(velodyne_laserscan     REQUIRED)
+find_package(velodyne_pointcloud    REQUIRED)
+
 
 install(DIRECTORY
   launch
