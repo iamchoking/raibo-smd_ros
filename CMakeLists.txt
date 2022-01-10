@@ -19,7 +19,6 @@ endif()
 find_package(ament_cmake REQUIRED)
 
 # sensors base packages
-find_package(rclcpp                 REQUIRED)
 find_package(realsense2_camera      REQUIRED)
 find_package(realsense2_camera_msgs REQUIRED)
 find_package(velodyne               REQUIRED)
@@ -28,11 +27,43 @@ find_package(velodyne_laserscan     REQUIRED)
 find_package(velodyne_pointcloud    REQUIRED)
 
 
+find_package(rclcpp                 REQUIRED)
+find_package(std_msgs               REQUIRED)
+find_package(sensor_msgs            REQUIRED)
+find_package(pcl_ros                REQUIRED)
+find_package(tf2_sensor_msgs        REQUIRED)
+
+
 install(DIRECTORY
   launch
   rviz
   DESTINATION share/${PROJECT_NAME}
 )
+
+
+add_executable(raibo_pcl2_bridge src/raibo_pcl2_bridge)
+
+install(TARGETS
+  raibo_pcl2_bridge
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+ament_target_dependencies(raibo_pcl2_bridge
+  rclcpp
+  std_msgs
+  sensor_msgs
+  pcl_ros
+  tf2_ros
+  tf2_geometry_msgs
+  tf2_sensor_msgs
+)
+
+# add_executable(listener src/subscriber_member_function.cpp)
+# ament_target_dependencies(listener rclcpp std_msgs)
+
+# install(TARGETS
+#   listener
+#   DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

@@ -27,7 +27,7 @@ import depth_launch
 with open(os.path.join(pkg_launch_dir,'config.yaml')) as stream:
     config = yaml.safe_load(stream)
 
-def pharse_tf_args(config,use_camera):
+def pharse_tf_args(config,use_camera,period_ms=100):
 
     use_trans = config[use_camera]['translation_base_to_link']['data']
     trans_args = list(map(str,use_trans))
@@ -35,6 +35,7 @@ def pharse_tf_args(config,use_camera):
     use_zyx   = config[use_camera]['ZYX_base_to_link']['data']
     zyx_args = list(map(str,use_zyx))
 
+    # use_args = trans_args+zyx_args+['base',use_camera+'_link']+["%d"%(period_ms)]
     use_args = trans_args+zyx_args+['base',use_camera+'_link']
 
     return use_args
@@ -70,7 +71,7 @@ def generate_launch_description():
     params1 = duplicate_params(depth_launch.full_parameters, '1')
     params2 = duplicate_params(depth_launch.full_parameters, '2')
 
-    rviz_config_dir = os.path.join(pkg_dir, 'rviz', 'head_mult_mono.rviz')
+    rviz_config_dir = os.path.join(pkg_dir, 'rviz', 'full.rviz')
     enable_rviz = LaunchConfiguration("enable_rviz")
     rviz_node = Node(
         package='rviz2',

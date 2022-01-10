@@ -77,8 +77,20 @@ Additionally, since RAIBO uses a usb-c hub for ethernet connection, the adapter 
 
 Use ```sudo ifconfig -a``` command to see possible internet adapters, and choose the alias with the connected MAC that matches that of the LiDAR. (i.e.: ```enx00e04c680015```)
 </br></br>
-## 2. Install From Source
-- Move to your underlay source and clone this repo.
+
+### 1.4. ```perception_pcl``` (ROS2 library) ([link (github)](https://github.com/ros-perception/perception_pcl)) ([link (ROS index)](http://wiki.ros.org/perception_pcl))
+As of 2022-01-07, building from binaries results in depnedency errors.
+Build from source instead (```ros2``` branch).
+This also results in dependancy errors.
+- Resolution: in both ```transforms.hpp``` and ```transforms.cpp```, change one of the ```#include``` statements as follows:
+```cpp
+from: #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
+                                                     ^^
+to  : #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+```
+
+## 2. Install ```raibo-smd_ros``` From Source
+- Move to your ```workspace/src``` and clone this repo.
 ```
 cd ~/dev_ws/src
 git clone https://github.com/iamchoking/raibo-smd_ros.git

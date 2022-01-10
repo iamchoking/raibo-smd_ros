@@ -40,9 +40,8 @@ for name,data in (config['rs_config'].items()):
 
 # additional parameters that need to be configured (params that are not relevant to .yaml file)
 local_parameters +=[
-    # {'name': 'enable_sync',       'default': 'true',        'description': 'thats the sync'},
-    {'name': 'pointcloud.stream_index_filter'   ,   'default': "0", 'description': 'pcl stream index filter'                                        },
-    {'name': 'stereo_module.inter_cam_sync_mode',   'default': "1", 'description': 'camera sync mode (0: default,1: master,2: slave,3: full slave,)'},
+    # {'name': 'pointcloud.stream_index_filter'   ,   'default': "0", 'description': 'pcl stream index filter'                                        },
+    # {'name': 'stereo_module.inter_cam_sync_mode',   'default': "1", 'description': 'camera sync mode (0: default,1: master,2: slave,3: full slave,)'},
 ]
 
 for data in local_parameters:

@@ -43,12 +43,25 @@ rs_config:
     description: ""
 
   filters:
-    default: "spatial,temporal,pointcloud"
+    default: "spatial,temporal,pointcloud,decimation"
     description: "filters (denoted by commas)"
+
+  clip_distance:
+    default: "2.0"
+    description: "maximum distance in depth image (invalid otherwise)"
+
+  ordered_pc:
+    default: 'false'
+    description: 'orderes pointcloud to stereo module specs.'
+
+  stereo_module.inter_cam_sync_mode:
+    default: "0"
+    description: 'camera sync mode (0: default,1: master,2: slave,3: full slave,)'
 
   allow_no_texture_points:
     default: "true"
     description: "publish pointcloud data that has no texture (color)"
+
 
 d435i_R:
   serial: 
