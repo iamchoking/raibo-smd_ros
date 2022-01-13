@@ -80,10 +80,6 @@ private:
     Eigen::Matrix4f depthR_eigen4;
     Eigen::Matrix4f lidar_eigen4;
 
-    sensor_msgs::msg::PointCloud2 depthR_data;
-    sensor_msgs::msg::PointCloud2 depthL_data;
-    sensor_msgs::msg::PointCloud2  lidar_data;
-
     void get_tf_eigen4(std::string source_frame , std::string target_frame ,geometry_msgs::msg::TransformStamped& tf_stamped, Eigen::Matrix4f& tf_eigen4){
         std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
         std::string warning_msg;

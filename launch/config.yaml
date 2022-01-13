@@ -45,10 +45,12 @@ rs_config:
   filters:
     default: "spatial,temporal,pointcloud,decimation"
     description: "filters (denoted by commas)"
-
   clip_distance:
     default: "2.0"
     description: "maximum distance in depth image (invalid otherwise)"
+  decimation.filter_magnitude:
+    default: "5"
+    description: "decimation size (largely impacts downstream computation)"
 
   ordered_pc:
     default: 'false'
@@ -58,10 +60,16 @@ rs_config:
     default: "0"
     description: 'camera sync mode (0: default,1: master,2: slave,3: full slave,)'
 
+  pointcloud_texture_stream:
+    default: "RS2_STREAM_ANY"
+    description: "texture stream for pointclouds. ( RS2_STREAM_(ANY/COLOR/INFRA) )"
   allow_no_texture_points:
     default: "true"
     description: "publish pointcloud data that has no texture (color)"
 
+  # initial_reset:
+  #   default: "true"
+  #   description: "reset camera before starting"
 
 d435i_R:
   serial: 
