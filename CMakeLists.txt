@@ -26,33 +26,21 @@ find_package(pcl_ros                REQUIRED)
 find_package(tf2_sensor_msgs        REQUIRED)
 find_package(message_filters        REQUIRED)
 
-
 install(DIRECTORY
   launch
   rviz
   DESTINATION share/${PROJECT_NAME}
 )
 
-add_executable(raibo_pcl2_bridge src/raibo_pcl2_bridge.cpp)
-add_executable(syncer_bridge     src/sync_bridge.cpp)
+add_executable(raibo_bridge src/raibo_bridge.cpp)
 
 install(TARGETS
-  raibo_pcl2_bridge
-  syncer_bridge
+  raibo_bridge
   DESTINATION lib/${PROJECT_NAME}
 )
+target_compile_options(raibo_bridge PRIVATE -march=native)
 
-ament_target_dependencies(raibo_pcl2_bridge
-  rclcpp
-  std_msgs
-  sensor_msgs
-  pcl_ros
-  tf2_ros
-  tf2_geometry_msgs
-  tf2_sensor_msgs
-)
-
-ament_target_dependencies(syncer_bridge
+ament_target_dependencies(raibo_bridge
   rclcpp
   std_msgs
   sensor_msgs

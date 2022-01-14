@@ -29,7 +29,7 @@ def generate_launch_description():
 
     bridge_node = Node(
         package = "raibo-smd_ros",
-        executable = "syncer_bridge",
+        executable = "raibo_bridge",
         name="raibo_full_bridge",
         parameters=[{'enable_head':True},{'enable_lidar':True}],
         condition=IfCondition(LaunchConfiguration("enable_raibo_bridge"))

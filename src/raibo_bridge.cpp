@@ -21,8 +21,6 @@
 #include <tf2_eigen/tf2_eigen.h>
 
 #include <pcl_ros/transforms.hpp>
-// #include <pcl_ros/transforms.h>
-// #include <pcl/common/transforms.h>
 #include <pcl_conversions/pcl_conversions.h>
 
 using namespace std::chrono_literals;
@@ -112,6 +110,7 @@ public:
             publisher_lidar_ = this->create_publisher<PCL2>("raibo_lidar_pcl2",3);
             RCLCPP_INFO(this->get_logger(),"LiDAR Initialized with:\ntopic name: [ %s ]\nframe id: [ %s ]",lidar_topic_name,lidar_frame_id);
         }
+    RCLCPP_INFO(this->get_logger(),"raibo_bridge node is up!");
     }
 
     // time-logging global variables
@@ -179,6 +178,7 @@ private:
             depth_now  = std::clock();
         }
 
+        // concatenating pointclouds
         pcl::concatenatePointCloud(data_depth_1,data_depth_2,data_depth);
 
         if(do_timelog){
