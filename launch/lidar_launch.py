@@ -39,8 +39,23 @@ def pharse_tf_args(config,use_device):
     return use_args
 
 def generate_launch_description():
-    enable_rviz = LaunchConfiguration("enable_rviz")
-    rviz_config_dir = os.path.join(pkg_dir, 'rviz', 'lidar.rviz')
+    tf_node = Node(
+        package = "tf2_ros", 
+        executable = "static_transform_publisher",
+        name="base_to_"+'velodyne',
+        arguments = pharse_tf_args(config,'velodyne'),
+    )
+
+    bridge_node = Node(
+        package = "raibo-smd_ros",
+        executable = "syncer_bridge",
+        name="raibo_lidar_bridge",
+        parameters=[{'enable_head':False},{'enable_lidar':True}],
+        condition=IfCondition(LaunchConfiguration("enable_raibo_bridge"))
+    )
+
+    # enable_rviz = LaunchConfiguration("enable_rviz")
+    rviz_config_dir = os.path.join(pkg_dir, 'rviz', 'raibo_smd.rviz')
     rviz_node = Node(
         package='rviz2',
         executable='rviz2',
@@ -50,14 +65,6 @@ def generate_launch_description():
         parameters=[{'use_sim_time': False}],
         condition=IfCondition(LaunchConfiguration("enable_rviz")),
     )
-
-    tf_node = Node(
-        package = "tf2_ros", 
-        executable = "static_transform_publisher",
-        name="base_to_"+'velodyne',
-        arguments = pharse_tf_args(config,'velodyne'),
-    )
-
     return LaunchDescription(
         [
         tf_node,
@@ -65,6 +72,8 @@ def generate_launch_description():
             PythonLaunchDescriptionSource([vel_launch_dir, '/velodyne-all-nodes-VLP16-launch.py']),
             # launch_arguments=set_configurable_parameters(params1).items(),
         ),
+        DeclareLaunchArgument('enable_raibo_bridge',default_value="true",description="launch bridge node"),
+        bridge_node,
         DeclareLaunchArgument('enable_rviz',default_value="true",description="run rviz node"),
         rviz_node,
     ])

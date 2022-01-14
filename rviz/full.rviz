@@ -1,14 +1,15 @@
 Panels:
   - Class: rviz_common/Displays
-    Help Height: 70
+    Help Height: 0
     Name: Displays
     Property Tree Widget:
       Expanded:
         - /Global Options1
-        - /PCL2_R1/Autocompute Value Bounds1
-        - /PCL2_L1/Autocompute Value Bounds1
-      Splitter Ratio: 0.4943310618400574
-    Tree Height: 301
+        - /RAW_head-R1/Autocompute Value Bounds1
+        - /RAW_head-L1/Autocompute Value Bounds1
+        - /lidar1/Autocompute Value Bounds1
+      Splitter Ratio: 0.5737704634666443
+    Tree Height: 405
   - Class: rviz_common/Selection
     Name: Selection
   - Class: rviz_common/Tool Properties
@@ -89,7 +90,40 @@ Visualization Manager:
       Max Intensity: 4096
       Min Color: 0; 0; 0
       Min Intensity: 0
-      Name: PCL2_R
+      Name: head
+      Position Transformer: XYZ
+      Selectable: true
+      Size (Pixels): 2
+      Size (m): 0.009999999776482582
+      Style: Points
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /raibo_head_pcl2
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 5
+        Min Value: 0.5
+        Value: false
+      Axis: X
+      Channel Name: intensity
+      Class: rviz_default_plugins/PointCloud2
+      Color: 0; 0; 255
+      Color Transformer: FlatColor
+      Decay Time: 0
+      Enabled: false
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Max Intensity: 4096
+      Min Color: 0; 0; 0
+      Min Intensity: 0
+      Name: RAW_head-R
       Position Transformer: XYZ
       Selectable: true
       Size (Pixels): 1
@@ -103,7 +137,7 @@ Visualization Manager:
         Value: /d435i_R/depth/color/points
       Use Fixed Frame: true
       Use rainbow: true
-      Value: true
+      Value: false
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -113,16 +147,16 @@ Visualization Manager:
       Axis: X
       Channel Name: intensity
       Class: rviz_default_plugins/PointCloud2
-      Color: 255; 255; 255
-      Color Transformer: AxisColor
+      Color: 0; 0; 255
+      Color Transformer: FlatColor
       Decay Time: 0
-      Enabled: true
+      Enabled: false
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Max Intensity: 3.5733110840282835e-43
       Min Color: 0; 0; 0
       Min Intensity: 2.802596928649634e-44
-      Name: PCL2_L
+      Name: RAW_head-L
       Position Transformer: XYZ
       Selectable: true
       Size (Pixels): 1
@@ -134,6 +168,39 @@ Visualization Manager:
         History Policy: Keep Last
         Reliability Policy: Reliable
         Value: /d435i_L/depth/color/points
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: false
+    - Alpha: 1
+      Autocompute Intensity Bounds: false
+      Autocompute Value Bounds:
+        Max Value: 1
+        Min Value: -1
+        Value: false
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz_default_plugins/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: AxisColor
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Max Intensity: 200
+      Min Color: 0; 0; 0
+      Min Intensity: 0
+      Name: lidar
+      Position Transformer: XYZ
+      Selectable: true
+      Size (Pixels): 2
+      Size (m): 0.009999999776482582
+      Style: Points
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /raibo_lidar_pcl2
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
@@ -149,13 +216,13 @@ Visualization Manager:
       Color: 255; 255; 255
       Color Transformer: Intensity
       Decay Time: 0
-      Enabled: true
+      Enabled: false
       Invert Rainbow: false
       Max Color: 255; 255; 255
-      Max Intensity: 128
+      Max Intensity: 129
       Min Color: 0; 0; 0
       Min Intensity: 0
-      Name: VLP16_PUCK-LITE
+      Name: RAW_lidar
       Position Transformer: XYZ
       Selectable: true
       Size (Pixels): 3
@@ -169,7 +236,7 @@ Visualization Manager:
         Value: /velodyne_points
       Use Fixed Frame: true
       Use rainbow: true
-      Value: true
+      Value: false
     - Class: rviz_default_plugins/TF
       Enabled: true
       Frame Timeout: 15
@@ -197,6 +264,8 @@ Visualization Manager:
           Value: true
         d435i_R_link:
           Value: true
+        velodyne:
+          Value: true
       Marker Scale: 1
       Name: TF
       Show Arrows: true
@@ -218,6 +287,8 @@ Visualization Manager:
             d435i_R_depth_frame:
               d435i_R_depth_optical_frame:
                 {}
+          velodyne:
+            {}
       Update Interval: 0
       Value: true
   Enabled: true
@@ -263,25 +334,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 4.294517993927002
+      Distance: 3.8069913387298584
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.1783025711774826
-        Y: 0.15131627023220062
-        Z: 0.25320926308631897
+        X: 0.19143551588058472
+        Y: -0.35726872086524963
+        Z: 0.30762165784835815
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.34479615092277527
+      Pitch: 0.20479589700698853
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.197234630584717
+      Yaw: 3.7522311210632324
     Saved: ~
 Window Geometry:
   Displays:
@@ -289,7 +360,7 @@ Window Geometry:
   Height: 1016
   Hide Left Dock: false
   Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd0000000400000000000001bb0000039efc020000000dfb000000100044006900730070006c006100790073010000003d000001b0000000c900fffffffb0000000a005200470042005f00520100000122000000d70000000000000000fb0000000a005200470042005f004c01000001ff000000dc0000000000000000fb0000001200530065006c0065006300740069006f006e0000000357000000840000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000a0049006d006100670065000000026d000000750000000000000000fb0000000a005200470042005f005201000001f3000000ed0000002800fffffffb0000000a005200470042005f004c01000002e6000000f50000002800ffffff000000010000011e0000039efc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000003d0000039e000000a400fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000004420000003efc0100000002fb0000000800540069006d00650100000000000004420000000000000000fb0000000800540069006d00650100000000000004500000000000000000000005770000039e00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000400000000000001700000039efc020000000dfb000000100044006900730070006c006100790073010000003d000001d2000000c900fffffffb0000000a005200470042005f00520100000114000000680000000000000000fb0000000a005200470042005f004c01000001820000006b0000000000000000fb0000001200530065006c0065006300740069006f006e0000000357000000840000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000a0049006d006100670065000000026d000000750000000000000000fb0000000a005200470042005f00520100000215000000d80000002800fffffffb0000000a005200470042005f004c01000002f3000000e80000002800ffffff000000010000011e0000039efc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000003d0000039e000000a400fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000004420000003efc0100000002fb0000000800540069006d00650100000000000004420000000000000000fb0000000800540069006d00650100000000000004500000000000000000000005c20000039e00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   RGB_L:
     collapsed: false
   RGB_R:

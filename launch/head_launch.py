@@ -71,18 +71,6 @@ def generate_launch_description():
     params1 = duplicate_params(depth_launch.full_parameters, '1')
     params2 = duplicate_params(depth_launch.full_parameters, '2')
 
-    rviz_config_dir = os.path.join(pkg_dir, 'rviz', 'full.rviz')
-    enable_rviz = LaunchConfiguration("enable_rviz")
-    rviz_node = Node(
-        package='rviz2',
-        executable='rviz2',
-        name='rviz2',
-        output = 'screen',
-        arguments=['-d', rviz_config_dir],
-        parameters=[{'use_sim_time': False}],
-        condition=IfCondition(LaunchConfiguration("enable_rviz")),
-        )
-
     tf_R_node = Node(
         package = "tf2_ros", 
         executable = "static_transform_publisher",
@@ -96,6 +84,26 @@ def generate_launch_description():
         name = "base_to_"+L_camera,
         arguments = pharse_tf_args(config,R_camera),
         )
+
+    bridge_node = Node(
+        package = "raibo-smd_ros",
+        executable = "syncer_bridge",
+        name="raibo_head_bridge",
+        parameters=[{'enable_head':True},{'enable_lidar':False}],
+        condition=IfCondition(LaunchConfiguration("enable_raibo_bridge"))
+    )
+
+    rviz_config_dir = os.path.join(pkg_dir, 'rviz', 'raibo_smd.rviz')
+    # enable_rviz = LaunchConfiguration("enable_rviz")
+    rviz_node = Node(
+        package='rviz2',
+        executable='rviz2',
+        name='rviz2',
+        output = 'screen',
+        arguments=['-d', rviz_config_dir],
+        parameters=[{'use_sim_time': False}],
+        condition=IfCondition(LaunchConfiguration("enable_rviz")),
+    )
 
     return LaunchDescription(
         rs_launch.declare_configurable_parameters(local_parameters) +
@@ -112,6 +120,8 @@ def generate_launch_description():
             PythonLaunchDescriptionSource([pkg_launch_dir, '/depth_launch.py']),
             launch_arguments=set_configurable_parameters(params2).items(),
         ),
+        DeclareLaunchArgument('enable_raibo_bridge',default_value="true",description="launch bridge node"),
+        bridge_node,
         DeclareLaunchArgument('enable_rviz',default_value="true",description="run rviz node"),
         rviz_node,
     ])

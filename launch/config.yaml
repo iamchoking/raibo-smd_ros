@@ -21,6 +21,22 @@ rs_config:
   enable_infra:
     default: "false"
     description: "enable infra"
+  enable_sync:
+    default: "true"
+    description: "enable timestamp sync between rgb,imu,and depth module"
+
+  # global_time_enabled:
+  #   default: "false"
+  #   description: "false for hw sync"
+  motion_module.global_time_enabled:
+    default: "false"
+    description: "false for hw sync"
+  rgb_camera.global_time_enabled:
+    default: "false"
+    description: "false for hw sync"
+  stereo_module.global_time_enabled:
+    default: "false"
+    description: "false for hw sync"
 
   depth_width:
     default: "640"
@@ -29,7 +45,7 @@ rs_config:
     default: "360"
     description: "depth image height"
   depth_fps:
-    default: "15."
+    default: "30."
     description: ""
 
   color_width:
@@ -39,7 +55,7 @@ rs_config:
     default: "360"
     description: "color image height"
   color_fps:
-    default: "15."
+    default: "30."
     description: ""
 
   filters:

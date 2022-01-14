@@ -26,8 +26,17 @@ with open(os.path.join(pkg_launch_dir,'config.yaml')) as stream:
     config = yaml.safe_load(stream)
 
 def generate_launch_description():
+
+    bridge_node = Node(
+        package = "raibo-smd_ros",
+        executable = "syncer_bridge",
+        name="raibo_full_bridge",
+        parameters=[{'enable_head':True},{'enable_lidar':True}],
+        condition=IfCondition(LaunchConfiguration("enable_raibo_bridge"))
+    )
+
     enable_rviz = LaunchConfiguration("enable_rviz")
-    rviz_config_dir = os.path.join(pkg_dir, 'rviz', 'full.rviz')
+    rviz_config_dir = os.path.join(pkg_dir, 'rviz', 'raibo_smd.rviz')
     rviz_node = Node(
         package='rviz2',
         executable='rviz2',
@@ -40,14 +49,16 @@ def generate_launch_description():
 
     return LaunchDescription(
         [
+        DeclareLaunchArgument('enable_raibo_bridge',default_value="true",description="launch bridge node"),
+        bridge_node,        
         DeclareLaunchArgument('enable_rviz',default_value="true",description="run rviz node"),
         rviz_node,
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([pkg_launch_dir, '/lidar_launch.py']),
-            launch_arguments={'enable_rviz':'false'}.items(),
+            launch_arguments={'enable_rviz':'false','enable_raibo_bridge':'false'}.items(),
         ),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([pkg_launch_dir, '/head_launch.py']),
-            launch_arguments={'enable_rviz':'false'}.items(),
+            launch_arguments={'enable_rviz':'false','enable_raibo_bridge':'false'}.items(),
         ),
     ])
